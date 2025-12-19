@@ -8,6 +8,11 @@ export default function FloatingNav() {
   const pathname = usePathname();
   const router = useRouter();
 
+  // Hide nav on login page
+  if (pathname === "/login") {
+    return null;
+  }
+
   return (
     <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
       <div className="bg-white/80 backdrop-blur-md rounded-full shadow-lg border border-gray-200 px-4 py-2">

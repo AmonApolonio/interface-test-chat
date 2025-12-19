@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Fraunces } from "next/font/google";
 import "./globals.css";
 import { AntdProvider } from "@/components/AntdProvider";
+import { AuthProvider } from "@/app/context/AuthContext";
 import FloatingNav from "@/components/FloatingNav";
 
 const geistSans = Geist({
@@ -34,10 +35,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} antialiased`}
       >
-        <AntdProvider>
-          <FloatingNav />
-          {children}
-        </AntdProvider>
+        <AuthProvider>
+          <AntdProvider>
+            <FloatingNav />
+            {children}
+          </AntdProvider>
+        </AuthProvider>
       </body>
     </html>
   );
