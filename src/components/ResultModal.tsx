@@ -69,6 +69,9 @@ export default function ResultModal({
                   <strong>Proporções:</strong> {requestParams.proporcao || "—"}
                 </div>
                 <div>
+                  <strong>Peso Visual:</strong> {requestParams.peso_visual || "—"}
+                </div>
+                <div>
                   <strong>Localização:</strong>{" "}
                   {requestParams.latitude && requestParams.longitude
                     ? `${requestParams.latitude}, ${requestParams.longitude}`

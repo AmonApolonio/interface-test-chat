@@ -24,6 +24,7 @@ function HomePage() {
     coloracao: undefined,
     biotipo: undefined,
     proporcoes: undefined,
+    pesoVisual: undefined,
   });
 
   const handleGerarResposta = async () => {

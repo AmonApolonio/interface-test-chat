@@ -7,6 +7,7 @@ export interface FormData {
   coloracao: string | undefined;
   biotipo: string | undefined;
   proporcoes: string | undefined;
+  pesoVisual: string | undefined;
 }
 
 export interface RequestParams {
@@ -17,6 +18,7 @@ export interface RequestParams {
   proporcao: string | null;
   tipo_corporal: string | null;
   idade: string | null;
+  peso_visual: string | null;
   latitude: number | null;
   longitude: number | null;
 }
@@ -29,12 +31,13 @@ export interface MaterialBlockPayload {
   coloracao_pessoal?: string;
   tipo_corporal?: string;
   proporcao?: string;
+  peso_visual?: string;
 }
 
 export interface MaterialBlock {
   id: string;
   label: string;
-  type: "estilo-genero" | "estilo-idade" | "coloracao" | "tipo-corporal";
+  type: "estilo-genero" | "estilo-idade" | "coloracao" | "tipo-corporal" | "peso-visual";
   payload: MaterialBlockPayload;
   highlight?: boolean;
 }

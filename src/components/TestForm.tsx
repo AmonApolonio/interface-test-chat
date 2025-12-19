@@ -8,6 +8,7 @@ import {
   coloracaoOptions,
   biotipoOptions,
   proporcoesOptions,
+  pesoVisualOptions,
 } from "@/constants/formOptions";
 
 interface TestFormProps {
@@ -35,40 +36,40 @@ export default function TestForm({ formData, setFormData, onSubmit, loading }: T
         />
       </div>
 
-      {/* Estilo */}
-      <div>
-        <label className="block text-xs font-medium text-gray-600 mb-1.5">Estilo</label>
-        <Select
-          placeholder="Escolha um estilo"
-          options={estiloOptions.map((opt) => ({ label: opt, value: opt }))}
-          value={formData.estilo}
-          onChange={(value) => setFormData({ ...formData, estilo: value })}
-          className="w-full"
-        />
-      </div>
-
-      {/* Gênero */}
-      <div>
-        <label className="block text-xs font-medium text-gray-600 mb-1.5">Gênero</label>
-        <Segmented
-          options={["Feminino", "Masculino"]}
-          value={formData.genero}
-          onChange={(value) => setFormData({ ...formData, genero: value as string })}
-          block
-        />
-      </div>
-
-      {/* Idade, Localização and Coloração */}
-      <div className="grid grid-cols-4 gap-4">
+      {/* Estilo and Coloração */}
+      <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs font-medium text-gray-600 mb-1.5">Idade</label>
-          <InputNumber
-            placeholder="Digite sua idade"
-            min={1}
-            max={120}
-            value={formData.idade}
-            onChange={(value) => setFormData({ ...formData, idade: value || undefined })}
+          <label className="block text-xs font-medium text-gray-600 mb-1.5">Estilo</label>
+          <Select
+            placeholder="Escolha um estilo"
+            options={estiloOptions.map((opt) => ({ label: opt, value: opt }))}
+            value={formData.estilo}
+            onChange={(value) => setFormData({ ...formData, estilo: value })}
             className="w-full"
+          />
+        </div>
+
+        <div>
+          <label className="block text-xs font-medium text-gray-600 mb-1.5">Coloração</label>
+          <Select
+            placeholder="Escolha uma coloração"
+            options={coloracaoOptions.map((opt) => ({ label: opt, value: opt }))}
+            value={formData.coloracao}
+            onChange={(value) => setFormData({ ...formData, coloracao: value })}
+            className="w-full"
+          />
+        </div>
+      </div>
+
+      {/* Gênero and Localização */}
+      <div className="grid grid-cols-5 gap-4">
+        <div className="col-span-4">
+          <label className="block text-xs font-medium text-gray-600 mb-1.5">Gênero</label>
+          <Segmented
+            options={["Feminino", "Masculino"]}
+            value={formData.genero}
+            onChange={(value) => setFormData({ ...formData, genero: value as string })}
+            block
           />
         </div>
 
@@ -83,14 +84,32 @@ export default function TestForm({ formData, setFormData, onSubmit, loading }: T
             />
           </div>
         </div>
+      </div>
 
-        <div className="col-span-2">
-          <label className="block text-xs font-medium text-gray-600 mb-1.5">Coloração</label>
+      {/* Idade and Peso Visual */}
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-xs font-medium text-gray-600 mb-1.5">Idade</label>
+          <div className="w-full">
+            <InputNumber
+              placeholder="Digite sua idade"
+              min={1}
+              max={120}
+              value={formData.idade}
+              onChange={(value) => setFormData({ ...formData, idade: value || undefined })}
+              className="w-full"
+              style={{ width: "100%" }}
+            />
+          </div>
+        </div>
+
+        <div>
+          <label className="block text-xs font-medium text-gray-600 mb-1.5">Peso Visual</label>
           <Select
-            placeholder="Escolha uma coloração"
-            options={coloracaoOptions.map((opt) => ({ label: opt, value: opt }))}
-            value={formData.coloracao}
-            onChange={(value) => setFormData({ ...formData, coloracao: value })}
+            placeholder="Escolha o peso visual"
+            options={pesoVisualOptions.map((opt) => ({ label: opt, value: opt }))}
+            value={formData.pesoVisual}
+            onChange={(value) => setFormData({ ...formData, pesoVisual: value })}
             className="w-full"
           />
         </div>

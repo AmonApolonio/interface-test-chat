@@ -26,6 +26,7 @@ export const generateResponse = async (formData: FormData): Promise<{ result: st
     proporcao: formData.proporcoes || null,
     tipo_corporal: formData.biotipo || null,
     idade: formData.idade ? String(formData.idade) : null,
+    peso_visual: formData.pesoVisual || null,
     latitude,
     longitude,
   };

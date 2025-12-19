@@ -45,3 +45,11 @@ export const proporcoesOptions = [
   "Pernas Longas",
   "Tronco Longo",
 ];
+
+export const pesoVisualOptions = [
+  "Ombros",
+  "Seios",
+  "Abdômen",
+  "Quadril",
+  "Braços",
+];

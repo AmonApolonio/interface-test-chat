@@ -17,21 +17,31 @@ export async function POST(request: NextRequest) {
   try {
     const payload = await request.json();
 
-    const response = await fetch(API_URL, {
-      method: "POST",
-      headers: getAuthHeaders(),
-      body: JSON.stringify(payload),
-    });
+    const abortController = new AbortController();
+    const timeout = setTimeout(() => abortController.abort(), 600000); // 10 minutes
 
-    if (!response.ok) {
-      return NextResponse.json(
-        { error: "Erro ao enviar requisição" },
-        { status: response.status }
-      );
+    try {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: getAuthHeaders(),
+        body: JSON.stringify(payload),
+        signal: abortController.signal,
+      });
+
+      clearTimeout(timeout);
+
+      if (!response.ok) {
+        return NextResponse.json(
+          { error: "Erro ao enviar requisição" },
+          { status: response.status }
+        );
+      }
+
+      const data = await response.json();
+      return NextResponse.json(data);
+    } finally {
+      clearTimeout(timeout);
     }
-
-    const data = await response.json();
-    return NextResponse.json(data);
   } catch (error) {
     console.error("API Error:", error);
     return NextResponse.json(

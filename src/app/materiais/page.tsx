@@ -7,7 +7,7 @@ import MaterialModal from "@/components/MaterialModal";
 import LoadingOverlay from "@/components/LoadingOverlay";
 import { MaterialBlock as MaterialBlockType, MaterialResponse } from "@/types";
 import { fetchMaterialData } from "@/services/api";
-import { estiloOptions, coloracaoOptions, biotipoOptions, proporcoesOptions } from "@/constants/formOptions";
+import { estiloOptions, coloracaoOptions, biotipoOptions, proporcoesOptions, pesoVisualOptions } from "@/constants/formOptions";
 
 const generoOptions = ["Masculino", "Feminino"];
 const idadeRanges = [
@@ -82,6 +82,16 @@ export default function MateriaisIndexadosPage() {
       });
     });
   });
+
+  // Generate Peso Visual blocks
+  const pesoVisualBlocks: MaterialBlockType[] = pesoVisualOptions.map((pesoVisual) => ({
+    id: `peso-visual-${pesoVisual}`,
+    label: pesoVisual,
+    type: "peso-visual" as const,
+    payload: {
+      peso_visual: pesoVisual,
+    },
+  }));
 
   const handleBlockClick = async (block: MaterialBlockType) => {
     setSelectedBlock(block);
@@ -180,6 +190,23 @@ export default function MateriaisIndexadosPage() {
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2.5">
             {tipoCorporalBlocks.map((block) => (
+              <MaterialBlock key={block.id} block={block} onClick={handleBlockClick} />
+            ))}
+          </div>
+        </section>
+
+        {/* Peso Visual Section */}
+        <section className="mb-16">
+          <div className="mb-6">
+            <h2 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-1">
+              Análise
+            </h2>
+            <h3 className="text-2xl font-semibold text-gray-900">
+              Peso Visual
+            </h3>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5">
+            {pesoVisualBlocks.map((block) => (
               <MaterialBlock key={block.id} block={block} onClick={handleBlockClick} />
             ))}
           </div>

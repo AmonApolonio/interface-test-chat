@@ -25,6 +25,7 @@ export const exportToPDF = (requestParams: RequestParams, result: string) => {
     { label: "Coloração:", value: requestParams.coloracao_pessoal || "—" },
     { label: "Biotipo:", value: requestParams.tipo_corporal || "—" },
     { label: "Proporções:", value: requestParams.proporcao || "—" },
+    { label: "Peso Visual:", value: requestParams.peso_visual || "—" },
     {
       label: "Localização:",
       value:
@@ -83,6 +84,7 @@ Idade: ${requestParams.idade || "—"}
 Coloração: ${requestParams.coloracao_pessoal || "—"}
 Biotipo: ${requestParams.tipo_corporal || "—"}
 Proporções: ${requestParams.proporcao || "—"}
+Peso Visual: ${requestParams.peso_visual || "—"}
 Localização: ${
     requestParams.latitude && requestParams.longitude
       ? `${requestParams.latitude}, ${requestParams.longitude}`
