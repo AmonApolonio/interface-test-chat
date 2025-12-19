@@ -93,7 +93,14 @@ export default function MateriaisIndexadosPage() {
       setModalVisible(true);
     } catch (error) {
       console.error("Erro ao buscar materiais:", error);
-      message.error("Erro ao buscar materiais indexados. Tente novamente.");
+      const err = error as Error & { status?: number };
+      if (err.status === 403) {
+        message.error("Acesso negado (403). Verifique as credenciais de autenticação.");
+      } else if (err.status === 401) {
+        message.error("Não autorizado (401). Verifique as credenciais de autenticação.");
+      } else {
+        message.error("Erro ao buscar materiais indexados. Tente novamente.");
+      }
     } finally {
       setLoading(false);
     }

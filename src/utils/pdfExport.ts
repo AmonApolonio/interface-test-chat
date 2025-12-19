@@ -16,25 +16,33 @@ export const exportToPDF = (requestParams: RequestParams, result: string) => {
 
   // Parameters
   doc.setFontSize(11);
-  doc.setFont("helvetica", "normal");
 
   const params = [
-    `Ocasião: ${requestParams.resumo || "—"}`,
-    `Gênero: ${requestParams.genero || "—"}`,
-    `Estilo: ${requestParams.estilo_pessoal || "—"}`,
-    `Idade: ${requestParams.idade || "—"}`,
-    `Coloração: ${requestParams.coloracao_pessoal || "—"}`,
-    `Biotipo: ${requestParams.tipo_corporal || "—"}`,
-    `Proporções: ${requestParams.proporcao || "—"}`,
-    `Localização: ${
-      requestParams.latitude && requestParams.longitude
-        ? `${requestParams.latitude}, ${requestParams.longitude}`
-        : "—"
-    }`,
+    { label: "Ocasião:", value: requestParams.resumo || "—" },
+    { label: "Gênero:", value: requestParams.genero || "—" },
+    { label: "Estilo:", value: requestParams.estilo_pessoal || "—" },
+    { label: "Idade:", value: requestParams.idade || "—" },
+    { label: "Coloração:", value: requestParams.coloracao_pessoal || "—" },
+    { label: "Biotipo:", value: requestParams.tipo_corporal || "—" },
+    { label: "Proporções:", value: requestParams.proporcao || "—" },
+    {
+      label: "Localização:",
+      value:
+        requestParams.latitude && requestParams.longitude
+          ? `${requestParams.latitude}, ${requestParams.longitude}`
+          : "—",
+    },
   ];
 
   params.forEach((param) => {
-    doc.text(param, margin, yPosition);
+    // Print label in bold
+    doc.setFont("helvetica", "bold");
+    doc.text(param.label, margin, yPosition);
+    const labelWidth = doc.getTextWidth(param.label);
+    
+    // Print value in normal font
+    doc.setFont("helvetica", "normal");
+    doc.text(` ${param.value}`, margin + labelWidth, yPosition);
     yPosition += lineHeight;
   });
 

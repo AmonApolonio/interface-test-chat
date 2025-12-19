@@ -1,8 +1,5 @@
 import { FormData, RequestParams, MaterialBlockPayload, MaterialResponse } from "@/types";
 
-const API_URL = "https://dev.n8n.oigennie.ai/webhook/1cd69978-e485-4cf4-ab4d-1f1f7df8ab05";
-const MATERIALS_API_URL = "https://dev.n8n.oigennie.ai/webhook/e0a6b09b-7703-488f-96bc-98368a44c6cc";
-
 export const generateResponse = async (formData: FormData): Promise<{ result: string; params: RequestParams }> => {
   let latitude = null;
   let longitude = null;
@@ -34,7 +31,7 @@ export const generateResponse = async (formData: FormData): Promise<{ result: st
   };
 
   // Send POST request
-  const response = await fetch(API_URL, {
+  const response = await fetch("/api/generate", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -55,7 +52,7 @@ export const generateResponse = async (formData: FormData): Promise<{ result: st
 };
 
 export const fetchMaterialData = async (payload: MaterialBlockPayload): Promise<MaterialResponse> => {
-  const response = await fetch(MATERIALS_API_URL, {
+  const response = await fetch("/api/materials", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -64,7 +61,9 @@ export const fetchMaterialData = async (payload: MaterialBlockPayload): Promise<
   });
 
   if (!response.ok) {
-    throw new Error("Erro ao buscar materiais indexados");
+    const error = new Error("Erro ao buscar materiais indexados") as Error & { status: number };
+    error.status = response.status;
+    throw error;
   }
 
   const data = await response.json();
@@ -72,7 +71,7 @@ export const fetchMaterialData = async (payload: MaterialBlockPayload): Promise<
 };
 
 export const updateMaterialData = async (descricao: string, id: number, table: string): Promise<void> => {
-  const response = await fetch(MATERIALS_API_URL, {
+  const response = await fetch("/api/materials", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
