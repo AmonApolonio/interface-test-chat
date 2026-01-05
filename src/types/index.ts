@@ -37,7 +37,7 @@ export interface MaterialBlockPayload {
 export interface MaterialBlock {
   id: string;
   label: string;
-  type: "estilo-genero" | "estilo-idade" | "coloracao" | "tipo-corporal" | "peso-visual";
+  type: "estilo-genero" | "estilo-idade" | "coloracao-genero" | "tipo-corporal" | "proporcoes" | "peso-visual";
   payload: MaterialBlockPayload;
   highlight?: boolean;
 }

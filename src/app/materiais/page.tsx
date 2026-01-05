@@ -57,31 +57,41 @@ export default function MateriaisIndexadosPage() {
     });
   });
 
-  // Generate Coloração blocks
-  const coloracaoBlocks: MaterialBlockType[] = coloracaoOptions.map((coloracao) => ({
-    id: `coloracao-${coloracao}`,
-    label: coloracao,
-    type: "coloracao",
-    payload: {
-      coloracao_pessoal: coloracao,
-    },
-  }));
-
-  // Generate Tipo Corporal blocks
-  const tipoCorporalBlocks: MaterialBlockType[] = [];
-  biotipoOptions.forEach((biotipo) => {
-    proporcoesOptions.forEach((proporcao) => {
-      tipoCorporalBlocks.push({
-        id: `${biotipo}-${proporcao}`,
-        label: `${biotipo}\n×\n${proporcao}`,
-        type: "tipo-corporal",
+  // Generate Coloração x Gênero blocks
+  const coloracaoGeneroBlocks: MaterialBlockType[] = [];
+  generoOptions.forEach((genero) => {
+    coloracaoOptions.forEach((coloracao) => {
+      coloracaoGeneroBlocks.push({
+        id: `${genero}-${coloracao}`,
+        label: `${genero}\n×\n${coloracao}`,
+        type: "coloracao-genero",
         payload: {
-          tipo_corporal: biotipo,
-          proporcao: proporcao,
+          genero,
+          coloracao_pessoal: coloracao,
         },
       });
     });
   });
+
+  // Generate Tipo Corporal blocks
+  const tipoCorporalBlocks: MaterialBlockType[] = biotipoOptions.map((biotipo) => ({
+    id: `tipo-corporal-${biotipo}`,
+    label: biotipo,
+    type: "tipo-corporal",
+    payload: {
+      tipo_corporal: biotipo,
+    },
+  }));
+
+  // Generate Proporções blocks
+  const proporcoesBlocks: MaterialBlockType[] = proporcoesOptions.map((proporcao) => ({
+    id: `proporcoes-${proporcao}`,
+    label: proporcao,
+    type: "proporcoes",
+    payload: {
+      proporcao: proporcao,
+    },
+  }));
 
   // Generate Peso Visual blocks
   const pesoVisualBlocks: MaterialBlockType[] = pesoVisualOptions.map((pesoVisual) => ({
@@ -161,18 +171,18 @@ export default function MateriaisIndexadosPage() {
           </div>
         </section>
 
-        {/* Coloração Section */}
+        {/* Coloração × Gênero Section */}
         <section className="mb-16">
           <div className="mb-6">
             <h2 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-1">
-              Análise
+              Combinação
             </h2>
             <h3 className="text-2xl font-semibold text-gray-900">
-              Coloração Pessoal
+              Coloração × Gênero
             </h3>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2.5">
-            {coloracaoBlocks.map((block) => (
+            {coloracaoGeneroBlocks.map((block) => (
               <MaterialBlock key={block.id} block={block} onClick={handleBlockClick} />
             ))}
           </div>
@@ -182,14 +192,31 @@ export default function MateriaisIndexadosPage() {
         <section className="mb-16">
           <div className="mb-6">
             <h2 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-1">
-              Combinação
+              Análise
             </h2>
             <h3 className="text-2xl font-semibold text-gray-900">
-              Tipo Corporal × Proporções
+              Tipo Corporal
             </h3>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2.5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5">
             {tipoCorporalBlocks.map((block) => (
+              <MaterialBlock key={block.id} block={block} onClick={handleBlockClick} />
+            ))}
+          </div>
+        </section>
+
+        {/* Proporções Section */}
+        <section className="mb-16">
+          <div className="mb-6">
+            <h2 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-1">
+              Análise
+            </h2>
+            <h3 className="text-2xl font-semibold text-gray-900">
+              Proporções
+            </h3>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5">
+            {proporcoesBlocks.map((block) => (
               <MaterialBlock key={block.id} block={block} onClick={handleBlockClick} />
             ))}
           </div>
